@@ -29,6 +29,8 @@ Repozytorium używa branchy jako migawek kodu po każdej lekcji:
 - `master` / `main` — najaktualniejszy kod
 - `lesson-1` — szkielet projektu i ekran powitalny
 - `lesson-2` — JSX, komponenty i propsy (`TripCard`, `RatingStars`)
+- `lesson-3` - State, hooks (useState), oraz interaktywny formularz dodawania wycieczki.
+
 *(kolejne branche będą dodawane w trakcie kursu)*
 
 ## 🗺️ Plan kursu
