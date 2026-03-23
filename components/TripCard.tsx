@@ -3,13 +3,14 @@ import { StyleSheet, Text, View } from 'react-native';
 import RatingStars from './RatingStars';
 
 export interface TripCardProps {
+  id: string;
   title: string;
   destination: string;
   date: string;
   rating: number;
 }
 
-export default function TripCard({ title, destination, date, rating }: TripCardProps) {
+export default function TripCard({title, destination, date, rating }: TripCardProps) {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}</Text>
