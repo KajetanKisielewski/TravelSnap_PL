@@ -1,20 +1,21 @@
-import type { ReactElement } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from "react-native";
 
 interface RatingStarsProps {
   rating: number;
   maxStars?: number;
 }
 
-export default function RatingStars({ rating, maxStars = 5 }: RatingStarsProps) {
-  const normalizedRating = Math.max(0, Math.min(rating, maxStars));
-  const stars: ReactElement[] = [];
+export default function RatingStars({
+  rating,
+  maxStars = 5,
+}: RatingStarsProps) {
+  const stars = [];
 
   for (let i = 1; i <= maxStars; i++) {
     stars.push(
       <Text key={i} style={styles.star}>
-        {i <= normalizedRating ? '★' : '☆'}
-      </Text>
+        {i <= rating ? "\u2605" : "\u2606"}
+      </Text>,
     );
   }
 
@@ -23,12 +24,11 @@ export default function RatingStars({ rating, maxStars = 5 }: RatingStarsProps) 
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
-    marginTop: 2,
+    flexDirection: "row",
   },
   star: {
-    fontSize: 16,
-    color: '#e94560',
+    fontSize: 20,
+    color: "#f59e0b",
     marginRight: 2,
   },
 });
