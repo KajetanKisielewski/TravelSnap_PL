@@ -1,44 +1,35 @@
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Button, Text, View } from "react-native";
 
-import RatingStars from './RatingStars';
-
-export interface TripCardProps {
+type Trip = {
+  id: string;
   title: string;
   destination: string;
   date: string;
   rating: number;
-}
+};
 
-export default function TripCard({ title, destination, date, rating }: TripCardProps) {
+type Props = {
+  trip: Trip;
+  onDelete: (id: string) => void;
+};
+
+export default function TripCard({ trip, onDelete }: Props) {
   return (
-    <View style={styles.card}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.meta}>
-        {destination} | {date}
-      </Text>
-      <RatingStars rating={rating} />
+    <View
+      style={{
+        padding: 12,
+        marginVertical: 8,
+        backgroundColor: "#eee",
+        borderRadius: 8,
+      }}
+    >
+      <Text>{trip.title}</Text>
+      <Text>{trip.destination}</Text>
+      <Text>{trip.date}</Text>
+      <Text>Ocena: {trip.rating}</Text>
+
+      <Button title="Usuń" onPress={() => onDelete(trip.id)} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: '#fff',
-    padding: 16,
-    borderRadius: 32,
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1a1a2e',
-  },
-  meta: {
-    fontSize: 14,
-    color: '#888',
-  },
-});
