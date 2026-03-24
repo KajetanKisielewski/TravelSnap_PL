@@ -1,33 +1,12 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 import AddTripForm from "@/components/AddTripForm";
 import type { TripCardProps } from "@/components/TripCard";
 import TripCard from "@/components/TripCard";
 import { useState } from "react";
 
-const initialTrips: TripCardProps[] = [
-	{
-		title: "Wakacje w Polsce",
-		destination: "Warszawa",
-		date: "2026-03-07",
-		rating: 5,
-	},
-	{
-		title: "Weekend w Krakowie",
-		destination: "Kraków",
-		date: "2026-03-14",
-		rating: 4,
-	},
-	{
-		title: "Wyjazd na Bali",
-		destination: "Ubud",
-		date: "2026-07-20",
-		rating: 3,
-	},
-];
-
 export default function HomeScreen() {
-	const [trips, setTrips] = useState<TripCardProps[]>();
+	const [trips, setTrips] = useState<TripCardProps[]>([] as TripCardProps[]);
 
 	const handleAddTrip = (
 		title: string,
@@ -35,24 +14,37 @@ export default function HomeScreen() {
 		date: string,
 		rating: number,
 	) => {
+		const id = Date.now().toString();
 		setTrips([
-			...(trips || []),
-			{ title, destination, date, rating } as TripCardProps,
+			...trips,
+			{
+				id,
+				title,
+				destination,
+				date,
+				rating,
+				onDelete: () => handleDeleteTrip(id),
+			},
 		]);
+	};
+
+	const handleDeleteTrip = (id: string) => {
+		setTrips(trips.filter((trip) => trip.id !== id));
 	};
 
 	return (
 		<View style={styles.container}>
 			<AddTripForm onAddTrip={handleAddTrip} />
-
+			<Text>Liczba podróży: {trips.length}</Text>
 			<ScrollView contentContainerStyle={styles.content}>
-				{trips?.map((trip) => (
+				{trips.map((trip) => (
 					<TripCard
-						key={`${trip.title}-${trip.date}`}
+						key={trip.id}
 						title={trip.title}
 						destination={trip.destination}
 						date={trip.date}
 						rating={trip.rating}
+						onDelete={() => handleDeleteTrip(trip.id)}
 					/>
 				))}
 			</ScrollView>
