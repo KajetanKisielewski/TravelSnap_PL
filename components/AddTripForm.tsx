@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
+import {
+	Alert,
+	Button,
+	Keyboard,
+	StyleSheet,
+	TextInput,
+	View,
+} from "react-native";
 
 type AddTripFormProps = {
 	onAddTrip: (
@@ -21,11 +28,12 @@ export default function AddTripForm({ onAddTrip }: AddTripFormProps) {
 			? dateDigits
 			: `${dateDigits.slice(0, 4)}-${dateDigits.slice(4, 6)}`;
 
-	const handleDateChange = (text: string) => {
+	const handleDateChange = (text: string): void => {
 		setDateDigits(text.replace(/\D/g, "").slice(0, 6));
 	};
 
-	const handleAddTrip = () => {
+	const handleAddTrip = (): void => {
+		Keyboard.dismiss();
 		if (!title || !destination || !dateDigits || !rating) {
 			Alert.alert("Wypełnij wszystkie pola");
 			return;
@@ -46,6 +54,10 @@ export default function AddTripForm({ onAddTrip }: AddTripFormProps) {
 			return;
 		}
 		onAddTrip(title, destination, fullDate, rating);
+		setTitle("");
+		setDestination("");
+		setDateDigits("");
+		setRating(0);
 	};
 
 	return (

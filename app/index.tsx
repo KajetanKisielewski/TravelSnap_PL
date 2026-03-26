@@ -1,9 +1,10 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 
 import AddTripForm from "@/components/AddTripForm";
 import type { TripCardProps } from "@/components/TripCard";
 import TripCard from "@/components/TripCard";
 import { useState } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
 	const [trips, setTrips] = useState<TripCardProps[]>([] as TripCardProps[]);
@@ -33,7 +34,7 @@ export default function HomeScreen() {
 	};
 
 	return (
-		<View style={styles.container}>
+		<SafeAreaView style={styles.container}>
 			<AddTripForm onAddTrip={handleAddTrip} />
 			<Text>Liczba podróży: {trips.length}</Text>
 			<ScrollView contentContainerStyle={styles.content}>
@@ -48,14 +49,13 @@ export default function HomeScreen() {
 					/>
 				))}
 			</ScrollView>
-		</View>
+		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop: 100,
 		backgroundColor: "#f5f5f5",
 		padding: 16,
 	},
