@@ -13,7 +13,7 @@ export default function HomeScreen() {
 		title: string,
 		destination: string,
 		date: string,
-		rating: number,
+		rating: string,
 	) => {
 		const id = Date.now().toString();
 		setTrips((prev) => [...prev, { id, title, destination, date, rating }]);

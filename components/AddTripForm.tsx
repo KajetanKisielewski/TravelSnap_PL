@@ -13,7 +13,7 @@ type AddTripFormProps = {
 		title: string,
 		destination: string,
 		date: string,
-		rating: number,
+		rating: string,
 	) => void;
 };
 
@@ -21,7 +21,7 @@ export default function AddTripForm({ onAddTrip }: AddTripFormProps) {
 	const [title, setTitle] = useState("");
 	const [destination, setDestination] = useState("");
 	const [dateDigits, setDateDigits] = useState("");
-	const [rating, setRating] = useState(0);
+	const [rating, setRating] = useState("");
 
 	const date =
 		dateDigits.length <= 4
@@ -36,6 +36,11 @@ export default function AddTripForm({ onAddTrip }: AddTripFormProps) {
 		Keyboard.dismiss();
 		if (!title || !destination || !dateDigits || !rating) {
 			Alert.alert("Wypełnij wszystkie pola");
+			return;
+		}
+		const correctRating = Number(rating) >= 1 && Number(rating) <= 5;
+		if (!correctRating) {
+			Alert.alert("Zła ocena", "Ocena musi być między 1 a 5");
 			return;
 		}
 		const fullDate =
@@ -57,14 +62,7 @@ export default function AddTripForm({ onAddTrip }: AddTripFormProps) {
 		setTitle("");
 		setDestination("");
 		setDateDigits("");
-		setRating(0);
-	};
-
-	const handleRatingChange = (text: string): void => {
-		const number = Number(text);
-		if (number >= 1 && number <= 5) {
-			setRating(number);
-		}
+		setRating("");
 	};
 
 	return (
@@ -92,8 +90,8 @@ export default function AddTripForm({ onAddTrip }: AddTripFormProps) {
 			<TextInput
 				placeholder="Ocena (1-5)"
 				style={styles.input}
-				value={rating.toString()}
-				onChangeText={handleRatingChange}
+				onChangeText={(text) => setRating(text)}
+				value={rating}
 				keyboardType="numeric"
 			/>
 			<Button title="Dodaj" onPress={handleAddTrip} color="#000" />

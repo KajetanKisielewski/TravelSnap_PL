@@ -7,7 +7,7 @@ export interface TripData {
 	title: string;
 	destination: string;
 	date: string;
-	rating: number;
+	rating: string;
 }
 
 export type TripCardProps = TripData & {
@@ -28,7 +28,7 @@ export default function TripCard({
 			<Text style={styles.meta}>
 				{destination} | {date}
 			</Text>
-			<RatingStars rating={rating} />
+			<RatingStars rating={Number(rating)} />
 			<Button title="Usuń" onPress={onDelete} />
 		</View>
 	);
