@@ -60,6 +60,13 @@ export default function AddTripForm({ onAddTrip }: AddTripFormProps) {
 		setRating(0);
 	};
 
+	const handleRatingChange = (text: string): void => {
+		const number = Number(text);
+		if (number >= 1 && number <= 5) {
+			setRating(number);
+		}
+	};
+
 	return (
 		<View style={styles.container}>
 			<TextInput
@@ -86,12 +93,7 @@ export default function AddTripForm({ onAddTrip }: AddTripFormProps) {
 				placeholder="Ocena (1-5)"
 				style={styles.input}
 				value={rating.toString()}
-				onChangeText={(text) => {
-					const number = Number(text);
-					if (number >= 1 && number <= 5) {
-						setRating(number);
-					}
-				}}
+				onChangeText={handleRatingChange}
 				keyboardType="numeric"
 			/>
 			<Button title="Dodaj" onPress={handleAddTrip} color="#000" />
